@@ -15,13 +15,12 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: white;
         }
         .container {
-            width: 350px;
-            height: 600px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,7 +43,7 @@
         }
         .header .title p {
             margin: 0;
-            color: #666;
+            color: #ccc;
             font-size: 14px;
         }
         .header .back, .header .share {
@@ -63,7 +62,6 @@
             height: 250px;
             background-color: #ddd;
             border-radius: 50%;
-            position: relative;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
@@ -71,17 +69,6 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-        }
-        .player .cover .needle {
-            width: 100px;
-            height: 100px;
-            background-color: #eee;
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: rotate(-30deg);
-            transform-origin: 0% 100%;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         .controls {
             width: 100%;
@@ -95,7 +82,7 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #666;
+            color: #ccc;
         }
         .controls .play {
             font-size: 30px;
@@ -108,18 +95,18 @@
         }
         .progress span {
             font-size: 12px;
-            color: #666;
+            color: #ccc;
         }
         .progress .progress-bar {
             flex-grow: 1;
             height: 4px;
-            background-color: #ddd;
+            background-color: #888;
             border-radius: 2px;
             margin: 0 10px;
             position: relative;
         }
         .progress .progress-bar div {
-            width: 30%;
+            width: 0;
             height: 100%;
             background-color: #1db954;
             border-radius: 2px;
@@ -139,13 +126,12 @@
         <div class="player">
             <div class="cover">
                 <img src="image/cover.jpg" alt="封面">
-                <div class="needle"></div>
             </div>
-            <audio id="audio" src="music/one.mp3"></audio>
+            <audio id="audio" src="music/one.mp3" autoplay></audio>
             <div class="controls">
                 <button onclick="prevSong()">&#8634;</button>
                 <button onclick="rewind()">&#9664;</button>
-                <button class="play" onclick="togglePlay()">&#9658;</button>
+                <button class="play" onclick="togglePlay()">&#10074;&#10074;</button>
                 <button onclick="forward()">&#9654;</button>
                 <button>&#8942;</button>
             </div>
@@ -168,6 +154,8 @@
 
         audio.addEventListener('loadedmetadata', () => {
             durationElem.textContent = formatTime(audio.duration);
+            audio.play();
+            playButton.innerHTML = '&#10074;&#10074;';
         });
 
         audio.addEventListener('timeupdate', () => {
