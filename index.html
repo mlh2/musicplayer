@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e0e0e0;
+            background: url('image/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,7 +19,7 @@
         .container {
             width: 350px;
             height: 600px;
-            background-color: #f0f0f0;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -130,31 +131,78 @@
         <div class="header">
             <div class="back">&larr;</div>
             <div class="title">
-                <h2>华山铭</h2>
-                <p>LuckyMaxx</p>
+                <h2>陪你度过漫长岁月</h2>
+                <p>陈奕迅</p>
             </div>
             <div class="share">&rarr;</div>
         </div>
         <div class="player">
             <div class="cover">
-                <img src="cover.jpg" alt="封面">
+                <img src="image/cover.jpg" alt="封面">
                 <div class="needle"></div>
             </div>
+            <audio id="audio" src="music/陈奕迅 - 陪你度过漫长岁月.mp3"></audio>
             <div class="controls">
-                <button>&#8634;</button>
-                <button>&#9664;</button>
-                <button class="play">&#9658;</button>
-                <button>&#9654;</button>
+                <button onclick="prevSong()">&#8634;</button>
+                <button onclick="rewind()">&#9664;</button>
+                <button class="play" onclick="togglePlay()">&#9658;</button>
+                <button onclick="forward()">&#9654;</button>
                 <button>&#8942;</button>
             </div>
             <div class="progress">
-                <span>00:38</span>
+                <span id="current-time">00:00</span>
                 <div class="progress-bar">
-                    <div></div>
+                    <div id="progress"></div>
                 </div>
-                <span>03:33</span>
+                <span id="duration">00:00</span>
             </div>
         </div>
     </div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.querySelector('.play');
+        const progress = document.getElementById('progress');
+        const currentTimeElem = document.getElementById('current-time');
+        const durationElem = document.getElementById('duration');
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationElem.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            currentTimeElem.textContent = formatTime(audio.currentTime);
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+        });
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playButton.innerHTML = '&#10074;&#10074;';
+            } else {
+                audio.pause();
+                playButton.innerHTML = '&#9658;';
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function rewind() {
+            audio.currentTime -= 10;
+        }
+
+        function forward() {
+            audio.currentTime += 10;
+        }
+
+        function prevSong() {
+            // Implement previous song functionality
+        }
+    </script>
 </body>
 </html>
