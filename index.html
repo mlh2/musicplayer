@@ -11,24 +11,21 @@
             background-size: cover;
             margin: 0;
             padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             color: white;
         }
         .container {
-            width: 90%;
-            max-width: 400px;
-            height: 90%;
-            max-height: 600px;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         .header {
             width: 100%;
@@ -55,12 +52,9 @@
             font-size: 20px;
         }
         .player {
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex-grow: 1;
-            justify-content: center;
         }
         .player .cover {
             width: 60%;
@@ -133,11 +127,11 @@
             <div class="cover">
                 <img src="image/cover.jpg" alt="封面">
             </div>
-            <audio id="audio" src="music/one.mp3" autoplay></audio>
+            <audio id="audio" src="music/one.mp3"></audio>
             <div class="controls">
                 <button onclick="prevSong()">&#8634;</button>
                 <button onclick="rewind()">&#9664;</button>
-                <button class="play" onclick="togglePlay()">&#10074;&#10074;</button>
+                <button class="play" onclick="togglePlay()">&#9658;</button>
                 <button onclick="forward()">&#9654;</button>
                 <button>&#8942;</button>
             </div>
@@ -159,7 +153,9 @@
         const durationElem = document.getElementById('duration');
 
         document.addEventListener('DOMContentLoaded', () => {
-            audio.play().catch(error => {
+            audio.play().then(() => {
+                playButton.innerHTML = '&#10074;&#10074;';
+            }).catch(error => {
                 console.log('Autoplay failed:', error);
                 playButton.innerHTML = '&#9658;';
             });
