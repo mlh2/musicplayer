@@ -25,7 +25,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
         .header {
             width: 100%;
@@ -33,6 +32,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            padding: 0 20px;
         }
         .header .title {
             text-align: center;
@@ -76,6 +76,7 @@
             align-items: center;
             justify-content: space-between;
             margin-top: 20px;
+            padding: 0 20px;
         }
         .controls button {
             background: none;
@@ -92,6 +93,7 @@
             display: flex;
             align-items: center;
             margin-top: 20px;
+            padding: 0 20px;
         }
         .progress span {
             font-size: 12px;
@@ -127,11 +129,13 @@
             <div class="cover">
                 <img src="image/cover.jpg" alt="封面">
             </div>
-            <audio id="audio" src="music/one.mp3"></audio>
+            <audio id="audio" src="music/one.mp3" autoplay loop preload="auto">
+                你的浏览器版本太低，不支持audio标签
+            </audio>
             <div class="controls">
                 <button onclick="prevSong()">&#8634;</button>
                 <button onclick="rewind()">&#9664;</button>
-                <button class="play" onclick="togglePlay()">&#9658;</button>
+                <button class="play" onclick="togglePlay()">&#10074;&#10074;</button>
                 <button onclick="forward()">&#9654;</button>
                 <button>&#8942;</button>
             </div>
@@ -151,15 +155,6 @@
         const progress = document.getElementById('progress');
         const currentTimeElem = document.getElementById('current-time');
         const durationElem = document.getElementById('duration');
-
-        document.addEventListener('DOMContentLoaded', () => {
-            audio.play().then(() => {
-                playButton.innerHTML = '&#10074;&#10074;';
-            }).catch(error => {
-                console.log('Autoplay failed:', error);
-                playButton.innerHTML = '&#9658;';
-            });
-        });
 
         audio.addEventListener('loadedmetadata', () => {
             durationElem.textContent = formatTime(audio.duration);
